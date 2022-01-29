@@ -27,7 +27,7 @@ import RotatingCardBack from "examples/Cards/RotatingCard/RotatingCardBack";
 import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
 
 // Images
-import bgFront from "assets/images/doctor-standing.jpg";
+import bgFront from "assets/images/laboratory.jpeg";
 import bgBack from "assets/images/watching-microscope.jpg";
 
 function Information() {
@@ -40,6 +40,7 @@ function Information() {
               <RotatingCardFront
                 image={bgFront}
                 icon="touch_app"
+                color="success"
                 title={
                   <>
                     Our
@@ -58,6 +59,7 @@ function Information() {
                   route: "/services",
                   label: "view all services",
                 }}
+                color="success"
               />
             </RotatingCard>
           </Grid>
@@ -68,6 +70,7 @@ function Information() {
                   icon="U"
                   title="Ultrasound services"
                   description=" A safe technique that uses sound waves to bring out pictures of the internal organs in the body and helps in diagnosing pathologies"
+                  color="success"
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -77,6 +80,7 @@ function Information() {
                   description="X-ray services for getting images of the skeletal system and its able to show pathologies like
 fractures,foreign bodies, etc for diagnosing
 infections and medical examinations."
+                  color="success"
                 />
               </Grid>
             </Grid>
@@ -86,13 +90,15 @@ infections and medical examinations."
                   icon="F"
                   title="Flouroscopy services"
                   description="similar to x-rays but usually a contrast media such as barium sulphate or omnipaque is used to outline the walls of the particular organ that needs to be examined."
+                  color="success"
                 />
               </Grid>
               <Grid item xs={12} md={6}>
                 <DefaultInfoCard
-                  icon="MM"
+                  icon="M"
                   title="Mammogram services"
                   description="We use a state-of -the-art GE mammogram machine to detect breast disease and cancers."
+                  color="success"
                 />
               </Grid>
             </Grid>

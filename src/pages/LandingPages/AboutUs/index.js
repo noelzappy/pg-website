@@ -37,7 +37,7 @@ import routes from "routes";
 import footerRoutes from "footer.routes";
 
 // Images
-import bgImage from "assets/images/surgeons.jpg";
+import bgImage from "assets/images/2.jpg";
 
 function AboutUs() {
   return (
@@ -50,7 +50,7 @@ function AboutUs() {
           type: "internal",
           route: "/appointment",
           label: "book appointment",
-          color: "info",
+          color: "success",
         }}
       />
       <MKBox
@@ -63,7 +63,7 @@ function AboutUs() {
               rgba(gradients.dark.state, 0.6)
             )}, url(${bgImage})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "top",
           display: "grid",
           placeItems: "center",
         }}

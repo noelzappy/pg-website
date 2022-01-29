@@ -58,7 +58,7 @@ function Team() {
               <HorizontalTeamCard
                 image={team1}
                 name="Dr Afua Amoa"
-                position={{ color: "info", label: "CEO" }}
+                position={{ color: "success", label: "CEO" }}
                 description="The one who made this whole dream a reality. A dedicated individual with outstanding qualification in health care."
               />
             </MKBox>
@@ -68,7 +68,7 @@ function Team() {
               <HorizontalTeamCard
                 image={team2}
                 name="Bettina Boateng"
-                position={{ color: "info", label: "Sonographer and Head of Operation" }}
+                position={{ color: "success", label: "Sonographer and Head of Operation" }}
                 description="Some dummy description about Boateng that we can work on changing later to fit his role/duties, qualification or any other information you wish to include."
               />
             </MKBox>
@@ -78,7 +78,7 @@ function Team() {
               <HorizontalTeamCard
                 image={team3}
                 name="Christabel Yeboah"
-                position={{ color: "info", label: "Sonographer" }}
+                position={{ color: "success", label: "Sonographer" }}
                 description="Some dummy description about Yeboah that we can work on changing later to fit his role/duties, qualification or any other information you wish to include."
               />
             </MKBox>
@@ -88,7 +88,7 @@ function Team() {
               <HorizontalTeamCard
                 image={team4}
                 name="Vincent Osei Asibey"
-                position={{ color: "info", label: "Sonographer" }}
+                position={{ color: "success", label: "Sonographer" }}
                 description="Some dummy description about Asibey that we can work on changing later to fit his role/duties, qualification or any other information you wish to include."
               />
             </MKBox>
@@ -99,7 +99,7 @@ function Team() {
               <HorizontalTeamCard
                 image={team3}
                 name="Stella Osae"
-                position={{ color: "info", label: "Administrator" }}
+                position={{ color: "success", label: "Administrator" }}
                 description="Some dummy description about Stella Osae that we can work on changing later to fit his role/duties, qualification or any other information you wish to include."
               />
             </MKBox>

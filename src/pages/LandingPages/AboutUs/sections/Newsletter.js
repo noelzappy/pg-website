@@ -25,7 +25,7 @@ import MKInput from "components/MKInput";
 import MKButton from "components/MKButton";
 
 // Images
-import videoCallImage from "assets/images/video-call-doctor.jpg";
+import microScopeStaring from "assets/images/3.jpg";
 
 function Newsletter() {
   return (
@@ -42,7 +42,7 @@ function Newsletter() {
                 <MKInput type="email" label="Email Here..." fullWidth />
               </Grid>
               <Grid item xs={4}>
-                <MKButton variant="gradient" color="info" sx={{ height: "100%" }}>
+                <MKButton variant="gradient" color="success" sx={{ height: "100%" }}>
                   Subscribe
                 </MKButton>
               </Grid>
@@ -50,7 +50,13 @@ function Newsletter() {
           </Grid>
           <Grid item xs={12} md={5} sx={{ ml: "auto" }}>
             <MKBox position="relative">
-              <MKBox component="img" src={videoCallImage} alt="Doctor Video Call" width="100%" />
+              <MKBox
+                component="img"
+                borderRadius="xl"
+                src={microScopeStaring}
+                alt="Doctor Video Call"
+                width="100%"
+              />
             </MKBox>
           </Grid>
         </Grid>

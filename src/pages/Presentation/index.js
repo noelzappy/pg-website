@@ -44,7 +44,7 @@ import routes from "routes";
 import footerRoutes from "footer.routes";
 
 // Images
-import bgImage from "assets/images/bg-header-home.jpg";
+import bgImage from "assets/images/1.jpg";
 
 function Presentation() {
   return (
@@ -56,7 +56,7 @@ function Presentation() {
           type: "internal",
           route: "/appointment",
           label: "book appointment",
-          color: "info",
+          color: "success",
         }}
       />
       <MKBox
@@ -65,7 +65,7 @@ function Presentation() {
         sx={{
           backgroundImage: `url(${bgImage})`,
           backgroundSize: "cover",
-          backgroundPosition: "top",
+          backgroundPosition: "center",
           display: "grid",
           placeItems: "center",
         }}
@@ -82,6 +82,7 @@ function Presentation() {
                   fontSize: size["3xl"],
                 },
               })}
+              textAlign="center"
             >
               Precious Gem Diagnostic Centre{" "}
             </MKTypography>
@@ -92,7 +93,7 @@ function Presentation() {
               px={{ xs: 6, lg: 12 }}
               mt={1}
             >
-              Providing personalized, high – quality health care to our clients. We exceed
+              Providing personalized, high–quality health care to our clients. We exceed
               expectations through our commitment to continuous quality improvement of healthcare.
             </MKTypography>
           </Grid>
@@ -119,7 +120,7 @@ function Presentation() {
             <Grid item xs={12} lg={6}>
               <FilledInfoCard
                 variant="gradient"
-                color="info"
+                color="success"
                 icon="M"
                 title="Our Mission"
                 description="To provide our clients with personalized, high–quality care ,We are dedicated to
@@ -135,7 +136,7 @@ responsive to then needs and values of patients ,physicians ,employers and emplo
             </Grid>
             <Grid item xs={12} lg={6}>
               <FilledInfoCard
-                color="info"
+                color="success"
                 icon="V"
                 title="Our Vision"
                 description="To be the first choice in healthcare for our communities by exceeding expectations through our commitment to continuous quality improvement of healthcare. To be the partner of choice for physicians by ensuring a safe environment to practice safe and

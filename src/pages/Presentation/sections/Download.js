@@ -23,14 +23,14 @@ import MKButton from "components/MKButton";
 import MKTypography from "components/MKTypography";
 
 // Images
-import bgImage from "assets/images/doctor-with-patient.jpg";
+import bgImage from "assets/images/x-ray-viewint-room.jpeg";
 
 function Download() {
   return (
     <MKBox component="section" py={{ xs: 0, sm: 12 }}>
       <MKBox
         variant="gradient"
-        bgColor="dark"
+        bgColor="light"
         position="relative"
         borderRadius="xl"
         sx={{ overflow: "hidden" }}
@@ -58,7 +58,7 @@ function Download() {
             </MKTypography>
             <MKButton
               variant="gradient"
-              color="info"
+              color="success"
               size="large"
               component="a"
               href="/appointment"

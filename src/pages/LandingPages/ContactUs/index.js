@@ -31,7 +31,7 @@ import routes from "routes";
 import footerRoutes from "footer.routes";
 
 // Image
-import bgImage from "assets/images/contact-bg.jpg";
+import bgImage from "assets/images/1.jpg";
 
 function ContactUs() {
   return (
@@ -43,7 +43,7 @@ function ContactUs() {
             type: "internal",
             route: "/appointment",
             label: "book appointment",
-            color: "info",
+            color: "success",
           }}
         />
       </MKBox>
@@ -56,7 +56,9 @@ function ContactUs() {
             borderRadius="lg"
             ml={2}
             mt={2}
-            sx={{ backgroundImage: `url(${bgImage})` }}
+            sx={{
+              backgroundImage: `url(${bgImage})`,
+            }}
           />
         </Grid>
         <Grid
@@ -82,8 +84,8 @@ function ContactUs() {
           >
             <MKBox
               variant="gradient"
-              bgColor="info"
-              coloredShadow="info"
+              bgColor="success"
+              coloredShadow="success"
               borderRadius="lg"
               p={2}
               mx={2}
@@ -130,7 +132,7 @@ function ContactUs() {
                   </Grid>
                 </Grid>
                 <Grid container item justifyContent="center" xs={12} mt={5} mb={2}>
-                  <MKButton variant="gradient" color="info">
+                  <MKButton variant="gradient" color="success">
                     Send Message
                   </MKButton>
                 </Grid>

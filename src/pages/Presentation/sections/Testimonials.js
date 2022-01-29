@@ -36,9 +36,10 @@ function Information() {
           lg={6}
           justifyContent="center"
           sx={{ mx: "auto", textAlign: "center" }}
+          color="success"
         >
           <MKTypography variant="h2">Trusted by over</MKTypography>
-          <MKTypography variant="h2" color="info" textGradient mb={2}>
+          <MKTypography variant="h2" color="success" textGradient mb={2}>
             9,477+ Ghanaians Lives
           </MKTypography>
           <MKTypography variant="body1" color="text" mb={2}>
@@ -57,7 +58,7 @@ function Information() {
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <DefaultReviewCard
-              color="info"
+              color="success"
               name="Emmanuel Yeboah"
               date="3 months ago"
               review="I found solution to all my healthcare needs from Precious Gem Diagnostic Centre. I use them as a freelancer in my hobby projects for fun! And its really affordable, very humble guys !!!"

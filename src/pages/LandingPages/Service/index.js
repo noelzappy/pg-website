@@ -21,20 +21,20 @@ import MKBox from "components/MKBox";
 
 // Material Kit 2 React examples
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
+// @mui material components
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
 
-// Doctors page sections
-import Profile from "pages/LandingPages/Doctors/sections/Profile";
-import Posts from "pages/LandingPages/Doctors/sections/Posts";
-import Contact from "pages/LandingPages/Doctors/sections/Contact";
-import Footer from "pages/LandingPages/Doctors/sections/Footer";
+// Material Kit 2 React components
+import MKTypography from "components/MKTypography";
 
 // Routes
 import routes from "routes";
 
 // Images
-import bgImage from "assets/images/city-profile.jpg";
+import bgImage from "assets/images/x-ray-room-correct.jpeg";
 
-function Doctors() {
+function Service() {
   return (
     <>
       <DefaultNavbar
@@ -43,7 +43,7 @@ function Doctors() {
           type: "internal",
           route: "/appointment",
           label: "book appointment",
-          color: "info",
+          color: "success",
         }}
         dark
         sticky
@@ -75,14 +75,21 @@ function Doctors() {
             boxShadow: ({ boxShadows: { xxl } }) => xxl,
           }}
         >
-          <Profile />
-          <Posts />
+          <MKBox component="section" py={2}>
+            <Container>
+              <Grid container item xs={12} lg={6}>
+                <MKTypography variant="h3" mb={6}>
+                  Our Services
+                </MKTypography>
+              </Grid>
+            </Container>
+          </MKBox>
         </Card>
-        <Contact />
-        <Footer />
+
+        {/* <Footer /> */}
       </MKBox>
     </>
   );
 }
 
-export default Doctors;
+export default Service;

@@ -37,20 +37,20 @@ function Places() {
       <Container>
         <Grid container item xs={12} lg={6}>
           <MKTypography variant="h3" mb={6}>
-            Check my latest blogposts
+            Our Galllery of Images
           </MKTypography>
         </Grid>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} lg={3}>
             <TransparentBlogCard
               image={post1}
-              title="Rover raised $65 million"
-              description="Finding temporary housing for your dog should be as easy as renting an Airbnb. That’s the idea behind Rover ..."
+              // title="Rover raised $65 million"
+              // description="Finding temporary housing for your dog should be as easy as renting an Airbnb. That’s the idea behind Rover ..."
               action={{
                 type: "internal",
                 route: "/pages/blogs/author",
                 color: "info",
-                label: "read more",
+                // label: "read more",
               }}
             />
           </Grid>

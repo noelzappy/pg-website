@@ -39,8 +39,9 @@ Coded by www.creative-tim.com
 // Pages
 import AboutUs from "layouts/pages/landing-pages/about-us";
 import ContactUs from "layouts/pages/landing-pages/contact-us";
-import Doctors from "layouts/pages/landing-pages/doctors";
+import Gallery from "pages/LandingPages/Gallery";
 import Appointment from "pages/LandingPages/Appointment";
+import Service from "pages/LandingPages/Service";
 
 const routes = [
   {
@@ -49,14 +50,19 @@ const routes = [
     component: <AboutUs />,
   },
   {
+    name: "our services",
+    route: "/services",
+    component: <Service />,
+  },
+  {
     name: "contact us",
     route: "/contact-us",
     component: <ContactUs />,
   },
   {
-    name: "our doctors",
-    route: "/doctors",
-    component: <Doctors />,
+    name: "our gallery",
+    route: "/gallery",
+    component: <Gallery />,
   },
 
   {

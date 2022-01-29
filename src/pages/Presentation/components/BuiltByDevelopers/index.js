@@ -35,8 +35,8 @@ function BuiltByDevelopers() {
       sx={{
         backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
           `${linearGradient(
-            rgba(gradients.dark.main, 0.4),
-            rgba(gradients.dark.state, 0.4)
+            rgba(gradients.success.main, 0.4),
+            rgba(gradients.success.state, 0.4)
           )}, url(${bgImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -48,7 +48,7 @@ function BuiltByDevelopers() {
             Our Wonderful Story
           </MKTypography>
           <MKTypography variant="h1" color="white" mb={1}>
-            Who we are & what we do
+            Who we are...
           </MKTypography>
           <MKTypography variant="body1" color="white" opacity={0.8} mb={2}>
             <b>Precious Gem Diagnostic Center</b> is a HEFRA (Health Facillity and Regulatory

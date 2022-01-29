@@ -73,7 +73,7 @@ function Information() {
               action={{
                 type: "internal",
                 route: "/appointment",
-                color: "info",
+                color: "success",
                 label: "book appointment",
               }}
             />
