@@ -30,7 +30,7 @@ function Download() {
     <MKBox component="section" py={{ xs: 0, sm: 12 }}>
       <MKBox
         variant="gradient"
-        bgColor="light"
+        bgColor="dark"
         position="relative"
         borderRadius="xl"
         sx={{ overflow: "hidden" }}
@@ -49,12 +49,13 @@ function Download() {
         <Container sx={{ position: "relative", zIndex: 2, py: 12 }}>
           <Grid container item xs={12} md={7} justifyContent="center" mx="auto" textAlign="center">
             <MKTypography variant="h3" color="white">
-              Book Appointment
+              Why Choose Us
             </MKTypography>
 
             <MKTypography variant="body2" color="white" mb={6}>
-              Want a personal session with our professional doctors? Book an appointment today and
-              start your journey of quality healthcare
+              Because at Precious gem we provide our patients with excellent services ,care and
+              exact diagnosis for quality treatment and recovery because our patients health is our
+              priority.
             </MKTypography>
             <MKButton
               variant="gradient"

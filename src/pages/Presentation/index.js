@@ -22,6 +22,7 @@ import Card from "@mui/material/Card";
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 import MKSocialButton from "components/MKSocialButton";
+import Carousel from "react-material-ui-carousel";
 
 // Material Kit 2 React examples
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
@@ -38,15 +39,37 @@ import Download from "pages/Presentation/sections/Download";
 
 // Presentation page components
 import BuiltByDevelopers from "pages/Presentation/components/BuiltByDevelopers";
-
 // Routes
 import routes from "routes";
 import footerRoutes from "footer.routes";
 
 // Images
 import bgImage from "assets/images/1.jpg";
+import imgTwo from "assets/images/2.jpg";
+import imgThree from "assets/images/3.jpg";
 
 function Presentation() {
+  const carouselItems = [
+    {
+      name: "Precious Gem Diagnostic Center",
+      description:
+        "Providing personalized, high–quality health care to our clients. We exceed expectations through our commitment to continuous quality improvement of healthcare.",
+      image: bgImage,
+    },
+    {
+      name: "Precious Gem Diagnostic Center",
+      description:
+        "Providing personalized, high–quality health care to our clients. We exceed expectations through our commitment to continuous quality improvement of healthcare.",
+      image: imgTwo,
+    },
+    {
+      name: "Precious Gem Diagnostic Center",
+      description:
+        "Providing personalized, high–quality health care to our clients. We exceed expectations through our commitment to continuous quality improvement of healthcare.",
+      image: imgThree,
+    },
+  ];
+
   return (
     <>
       <DefaultNavbar
@@ -59,46 +82,57 @@ function Presentation() {
           color: "success",
         }}
       />
-      <MKBox
-        minHeight="75vh"
-        width="100%"
-        sx={{
-          backgroundImage: `url(${bgImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          display: "grid",
-          placeItems: "center",
-        }}
-      >
-        <Container>
-          <Grid container item xs={12} lg={7} justifyContent="center" mx="auto">
-            <MKTypography
-              variant="h1"
-              color="white"
-              mt={-6}
-              mb={1}
-              sx={({ breakpoints, typography: { size } }) => ({
-                [breakpoints.down("md")]: {
-                  fontSize: size["3xl"],
-                },
-              })}
-              textAlign="center"
-            >
-              Precious Gem Diagnostic Centre{" "}
-            </MKTypography>
-            <MKTypography
-              variant="body1"
-              color="white"
-              textAlign="center"
-              px={{ xs: 6, lg: 12 }}
-              mt={1}
-            >
-              Providing personalized, high–quality health care to our clients. We exceed
-              expectations through our commitment to continuous quality improvement of healthcare.
-            </MKTypography>
-          </Grid>
-        </Container>
-      </MKBox>
+
+      <Carousel>
+        {carouselItems.map((item, i) => (
+          <MKBox
+            minHeight="75vh"
+            width="100%"
+            sx={{
+              backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
+                `${linearGradient(
+                  rgba(gradients.dark.main, 0.4),
+                  rgba(gradients.dark.state, 0.4)
+                )}, url(${item.image})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              placeItems: "center",
+              display: "grid",
+            }}
+            pt={15}
+            key={i.toString()}
+          >
+            <Container>
+              <Grid container item xs={12} lg={7} justifyContent="center" mx="auto">
+                <MKTypography
+                  variant="h1"
+                  color="white"
+                  mt={-6}
+                  mb={1}
+                  sx={({ breakpoints, typography: { size } }) => ({
+                    [breakpoints.down("md")]: {
+                      fontSize: size["3xl"],
+                    },
+                  })}
+                  textAlign="center"
+                >
+                  {item.name}
+                </MKTypography>
+                <MKTypography
+                  variant="body1"
+                  color="white"
+                  textAlign="center"
+                  px={{ xs: 6, lg: 12 }}
+                  mt={1}
+                >
+                  {item.description}
+                </MKTypography>
+              </Grid>
+            </Container>
+          </MKBox>
+        ))}
+      </Carousel>
+
       <Card
         sx={{
           p: 2,

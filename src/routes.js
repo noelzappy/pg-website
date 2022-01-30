@@ -42,8 +42,14 @@ import ContactUs from "layouts/pages/landing-pages/contact-us";
 import Gallery from "pages/LandingPages/Gallery";
 import Appointment from "pages/LandingPages/Appointment";
 import Service from "pages/LandingPages/Service";
+import Presentation from "layouts/pages/presentation";
 
 const routes = [
+  {
+    name: "home",
+    route: "/",
+    component: <Presentation />,
+  },
   {
     name: "about us",
     route: "/about-us",

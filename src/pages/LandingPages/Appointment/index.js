@@ -32,17 +32,7 @@ function Appointment() {
   return (
     <>
       <MKBox top="0.5rem" width="100%">
-        <DefaultNavbar
-          routes={routes}
-          // action={{
-          //   type: "external",
-          //   route: "/appointment",
-          //   label: "book appointment",
-          //   color: "info",
-          // }}
-          transparent
-          dark
-        />
+        <DefaultNavbar routes={routes} transparent dark />
       </MKBox>
 
       <MKBox px={1} pt={5} width="100%" height="100vh" mx="auto" position="relative" zIndex={2}>

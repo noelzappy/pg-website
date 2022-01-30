@@ -44,9 +44,9 @@ function BuiltByDevelopers() {
     >
       <Container>
         <Grid container item xs={12} lg={6} sx={{ ml: { xs: 0, lg: 6 } }}>
-          <MKTypography variant="h4" color="white" fontWeight="bold">
+          {/* <MKTypography variant="h4" color="white" fontWeight="bold">
             Our Wonderful Story
-          </MKTypography>
+          </MKTypography> */}
           <MKTypography variant="h1" color="white" mb={1}>
             Who we are...
           </MKTypography>

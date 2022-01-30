@@ -22,6 +22,10 @@ import MKBox from "components/MKBox";
 import MKInput from "components/MKInput";
 import MKButton from "components/MKButton";
 import MKTypography from "components/MKTypography";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 // Images
 import bgImage from "assets/images/1.jpg";
@@ -156,17 +160,48 @@ function Contact() {
                       <Grid item xs={12} pr={1} mb={6}>
                         <MKInput
                           variant="standard"
-                          label="Service I'm looking for"
-                          placeholder="I want ..."
+                          label="My email is"
+                          placeholder="Email Address"
                           InputLabelProps={{ shrink: true }}
                           fullWidth
+                          type="email"
                         />
                       </Grid>
                       <Grid item xs={12} pr={1} mb={6}>
                         <MKInput
                           variant="standard"
+                          label="My phone number is"
+                          placeholder="Phone Number"
+                          InputLabelProps={{ shrink: true }}
+                          fullWidth
+                          type="number"
+                        />
+                      </Grid>
+                      <Grid item xs={12} pr={1} mb={6}>
+                        <FormControl
+                          fullWidth
+                          variant="standard"
+                          InputLabelProps={{ shrink: true }}
+                        >
+                          <InputLabel id="service">Choose a service</InputLabel>
+                          <Select
+                            labelId="service"
+                            id="simple-select"
+                            // value={age}
+                            label="Age"
+                            // onChange={handleChange}
+                          >
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Grid>
+                      <Grid item xs={12} pr={1} mb={6}>
+                        <MKInput
+                          variant="standard"
                           label="Reason for appointment"
-                          placeholder="I want to say that..."
+                          placeholder="I want to book appointment about..."
                           InputLabelProps={{ shrink: true }}
                           fullWidth
                           multiline
