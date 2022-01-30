@@ -13,9 +13,11 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
+import { useState } from "react";
 // @mui material components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
+import Alert from "@mui/material/Alert";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
@@ -26,11 +28,66 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { object, string, number } from "yup";
 
 // Images
 import bgImage from "assets/images/1.jpg";
 
 function Contact() {
+  const [fullName, setFullName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [service, setService] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [description, setDescription] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const appointmentSchema = object({
+    fullName: string().required("Please enter your full name"),
+    phoneNumber: number("Please your phoe numbr is required")
+      .positive("Please your phoe numbr is required")
+      .integer("Please your phoe numbr is required")
+      .min(10, "Please your phoe numbr is required")
+      .required("Please your phoe numbr is required"),
+    userEmail: string("Please provide a valid email address")
+      .email("Please provide a valid email address")
+      .required("Please provide a valid email address"),
+    service: string("Please select at least one service").required(
+      "Please select at least one service"
+    ),
+    description: string("Please describe the reason for your appointment in brief").required(
+      "Please describe the reason for your appointment in brief"
+    ),
+  });
+
+  const onSubmitForm = () => {
+    appointmentSchema
+      .validate({
+        fullName,
+        phoneNumber,
+        userEmail,
+        service,
+        description,
+      })
+      .then((res) => {
+        setErrorMessage(null);
+        console.log(res);
+      })
+      .catch((error) => setErrorMessage(error.message));
+  };
+
+  const serviceList = [
+    "Ultrasound services",
+    "X-ray services",
+    "Flouroscopy services",
+    "Mammogram services",
+    "X-Ray comment",
+    "CT scan and MRI reporting",
+    "ECG services",
+    "Herbal medicine clinic",
+    "Medical examination services",
+    "Health counselling services",
+    "Cinical chemistry services",
+  ];
   return (
     <MKBox component="section" py={{ xs: 0, lg: 6 }}>
       <Container>
@@ -103,7 +160,7 @@ function Contact() {
                         ml={2}
                         fontWeight="regular"
                       >
-                        info@preciosugem.com
+                        info@preciousgem.com
                       </MKTypography>
                     </MKBox>
                     <MKBox display="flex" color="white" p={1}>
@@ -155,6 +212,10 @@ function Contact() {
                           placeholder="Full Name"
                           InputLabelProps={{ shrink: true }}
                           fullWidth
+                          value={fullName}
+                          onChange={(e) => {
+                            setFullName(e.target.value);
+                          }}
                         />
                       </Grid>
                       <Grid item xs={12} pr={1} mb={6}>
@@ -165,6 +226,8 @@ function Contact() {
                           InputLabelProps={{ shrink: true }}
                           fullWidth
                           type="email"
+                          value={userEmail}
+                          onChange={(e) => setUserEmail(e.target.value)}
                         />
                       </Grid>
                       <Grid item xs={12} pr={1} mb={6}>
@@ -175,6 +238,10 @@ function Contact() {
                           InputLabelProps={{ shrink: true }}
                           fullWidth
                           type="number"
+                          value={phoneNumber}
+                          onChange={(e) => {
+                            setPhoneNumber(e.target.value);
+                          }}
                         />
                       </Grid>
                       <Grid item xs={12} pr={1} mb={6}>
@@ -187,13 +254,13 @@ function Contact() {
                           <Select
                             labelId="service"
                             id="simple-select"
-                            // value={age}
-                            label="Age"
-                            // onChange={handleChange}
+                            value={service}
+                            label="Service Type"
+                            onChange={(e) => setService(e.target.value)}
                           >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            {serviceList.map((item) => (
+                              <MenuItem value={item}>{item}</MenuItem>
+                            ))}
                           </Select>
                         </FormControl>
                       </Grid>
@@ -206,9 +273,23 @@ function Contact() {
                           fullWidth
                           multiline
                           rows={6}
+                          value={description}
+                          onChange={(e) => setDescription(e.target.value)}
                         />
                       </Grid>
                     </Grid>
+                    {errorMessage !== null && (
+                      <Grid item xs={12} mb={3}>
+                        <Alert
+                          onClose={() => {
+                            setErrorMessage(null);
+                          }}
+                          severity="error"
+                        >
+                          {errorMessage}
+                        </Alert>
+                      </Grid>
+                    )}
                     <Grid
                       container
                       item
@@ -218,7 +299,7 @@ function Contact() {
                       textAlign="right"
                       ml="auto"
                     >
-                      <MKButton variant="gradient" color="success">
+                      <MKButton variant="gradient" color="success" onClick={onSubmitForm}>
                         Submit Details
                       </MKButton>
                     </Grid>
