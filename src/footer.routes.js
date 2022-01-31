@@ -62,7 +62,7 @@ export default {
       All Rights Reserved. Copyright &copy; {date} Precious Gem | Website by{" "}
       <MKTypography
         component="a"
-        href="https://www.noelzappy.github.io"
+        href="https://noelzappy.github.io"
         target="_blank"
         rel="noreferrer"
         variant="button"
