@@ -21,6 +21,7 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import TawkTo from "tawkto-react";
 
 // Material Kit 2 React themes
 import theme from "assets/theme";
@@ -37,6 +38,13 @@ export default function App() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
+
+  useEffect(() => {
+    const tawkTo = new TawkTo("61f81582b9e4e21181bccab0", "1fqoh81ud");
+    tawkTo.onStatusChange((status) => {
+      console.log(status);
+    });
+  }, []);
 
   const getRoutes = (allRoutes) =>
     allRoutes.map((route) => {
