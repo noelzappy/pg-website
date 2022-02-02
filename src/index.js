@@ -15,8 +15,20 @@ Coded by www.creative-tim.com
 
 import React from "react";
 import ReactDOM from "react-dom";
+import firebase from "firebase";
 import { BrowserRouter } from "react-router-dom";
 import App from "App";
+
+firebase.initializeApp({
+  apiKey: "AIzaSyB2H6F4PPZuN5Qe_Ou3kHXF2qlanjc-8OM",
+  authDomain: "precious-gem.firebaseapp.com",
+  databaseURL: "https://precious-gem-default-rtdb.firebaseio.com",
+  projectId: "precious-gem",
+  storageBucket: "precious-gem.appspot.com",
+  messagingSenderId: "66676254186",
+  appId: "1:66676254186:web:311222a399de0784813e93",
+  measurementId: "G-VB2GSR6L61",
+});
 
 ReactDOM.render(
   <BrowserRouter>

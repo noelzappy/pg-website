@@ -23,14 +23,29 @@ import MKTypography from "components/MKTypography";
 
 // Material Kit 2 React examples
 import HorizontalTeamCard from "examples/Cards/TeamCards/HorizontalTeamCard";
+import firebase from "firebase";
 
-// Images
-import team1 from "assets/images/team-5.jpg";
-import team2 from "assets/images/bruce-mars.jpg";
-import team3 from "assets/images/ivana-squares.jpg";
-import team4 from "assets/images/ivana-square.jpg";
+import { useEffect, useState } from "react";
 
 function Team() {
+  const database = firebase.database();
+  const [members, setMembers] = useState([]);
+
+  useEffect(() => {
+    database
+      .ref("staffs")
+      .get()
+      .then((snapshot) => {
+        const staffs = snapshot.val();
+        const temArr = [];
+        Object.values(staffs).forEach((staff) => {
+          temArr.push(staff);
+        });
+        setMembers(temArr);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <MKBox
       component="section"
@@ -53,57 +68,18 @@ function Team() {
           </Grid>
         </Grid>
         <Grid container spacing={3}>
-          <Grid item xs={12} lg={6}>
-            <MKBox mb={1}>
-              <HorizontalTeamCard
-                image={team1}
-                name="Dr Afua Amoa"
-                position={{ color: "success", label: "CEO" }}
-                description="The one who made this whole dream a reality. A dedicated individual with outstanding qualification in health care."
-              />
-            </MKBox>
-          </Grid>
-          <Grid item xs={12} lg={6}>
-            <MKBox mb={1}>
-              <HorizontalTeamCard
-                image={team2}
-                name="Bettina Boateng"
-                position={{ color: "success", label: "Sonographer and Head of Operation" }}
-                description="Some dummy description about Boateng that we can work on changing later to fit his role/duties, qualification or any other information you wish to include."
-              />
-            </MKBox>
-          </Grid>
-          <Grid item xs={12} lg={6}>
-            <MKBox mb={{ xs: 1, lg: 0 }}>
-              <HorizontalTeamCard
-                image={team3}
-                name="Christabel Yeboah"
-                position={{ color: "success", label: "Sonographer" }}
-                description="Some dummy description about Yeboah that we can work on changing later to fit his role/duties, qualification or any other information you wish to include."
-              />
-            </MKBox>
-          </Grid>
-          <Grid item xs={12} lg={6}>
-            <MKBox mb={{ xs: 1, lg: 0 }}>
-              <HorizontalTeamCard
-                image={team4}
-                name="Vincent Osei Asibey"
-                position={{ color: "success", label: "Sonographer" }}
-                description="Some dummy description about Asibey that we can work on changing later to fit his role/duties, qualification or any other information you wish to include."
-              />
-            </MKBox>
-          </Grid>
-
-          <Grid item xs={12} lg={6}>
-            <MKBox mb={{ xs: 1, lg: 0 }}>
-              <HorizontalTeamCard
-                image={team3}
-                name="Stella Osae"
-                position={{ color: "success", label: "Administrator" }}
-                description="Some dummy description about Stella Osae that we can work on changing later to fit his role/duties, qualification or any other information you wish to include."
-              />
-            </MKBox>
-          </Grid>
+          {members.map((member) => (
+            <Grid item xs={12} lg={6}>
+              <MKBox mb={1}>
+                <HorizontalTeamCard
+                  image={member.imageURL}
+                  name={member.fullName}
+                  position={{ color: "success", label: member.role }}
+                  description={member.roleDescription}
+                />
+              </MKBox>
+            </Grid>
+          ))}
         </Grid>
       </Container>
     </MKBox>

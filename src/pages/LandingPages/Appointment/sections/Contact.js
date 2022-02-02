@@ -29,17 +29,20 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { object, string, number } from "yup";
+import firebase from "firebase";
 
 // Images
 import bgImage from "assets/images/1.jpg";
 
 function Contact() {
+  const database = firebase.database();
   const [fullName, setFullName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [service, setService] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [description, setDescription] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const appointmentSchema = object({
     fullName: string().required("Please enter your full name"),
@@ -68,9 +71,25 @@ function Contact() {
         service,
         description,
       })
-      .then((res) => {
+      .then(() => {
         setErrorMessage(null);
-        console.log(res);
+        database
+          .ref("appointments")
+          .push({
+            appointee: fullName,
+            phoneNumber,
+            userEmail,
+            serviceBooked: service,
+            description,
+            status: "pending",
+          })
+          .then(() => {
+            setSuccessMessage("Apointment Booked Successfully");
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          })
+          .catch((error) => setErrorMessage(error.message));
       })
       .catch((error) => setErrorMessage(error.message));
   };
@@ -287,6 +306,19 @@ function Contact() {
                           severity="error"
                         >
                           {errorMessage}
+                        </Alert>
+                      </Grid>
+                    )}
+
+                    {successMessage !== null && (
+                      <Grid item xs={12} mb={3}>
+                        <Alert
+                          onClose={() => {
+                            setSuccessMessage(null);
+                          }}
+                          severity="success"
+                        >
+                          {successMessage}
                         </Alert>
                       </Grid>
                     )}
