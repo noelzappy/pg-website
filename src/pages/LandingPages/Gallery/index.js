@@ -36,9 +36,15 @@ import MKTypography from "components/MKTypography";
 
 // Routes
 import routes from "routes";
+import Lightbox from "react-image-lightbox";
+import "react-image-lightbox/style.css";
+import footerRoutes from "footer.routes";
+import DefaultFooter from "examples/Footers/DefaultFooter";
+import ScrollToTop from "react-scroll-to-top";
 
 // Images
 import bgImage from "assets/images/x-ray-room-correct.jpeg";
+import { useState } from "react";
 
 const imageList = [
   {
@@ -84,6 +90,8 @@ const imageList = [
 ];
 
 function Gallery() {
+  const [imgURL, setImgURL] = useState(null);
+
   return (
     <>
       <DefaultNavbar
@@ -133,7 +141,12 @@ function Gallery() {
               </Grid>
               <ImageList cols={2} variant="masonry">
                 {imageList.map((item) => (
-                  <ImageListItem key={item.img}>
+                  <ImageListItem
+                    key={item.img}
+                    onClick={() => {
+                      setImgURL(item.img);
+                    }}
+                  >
                     <img
                       src={`${item.img}`}
                       srcSet={`${item.img}`}
@@ -145,9 +158,12 @@ function Gallery() {
               </ImageList>
             </Container>
           </MKBox>
+          {imgURL !== null && <Lightbox mainSrc={imgURL} onCloseRequest={() => setImgURL(null)} />}
         </Card>
-
-        {/* <Footer /> */}
+        <ScrollToTop smooth />
+        <MKBox pt={6} px={1} mt={6}>
+          <DefaultFooter content={footerRoutes} />
+        </MKBox>
       </MKBox>
     </>
   );

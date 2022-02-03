@@ -25,7 +25,7 @@ import MKButton from "components/MKButton";
 
 // Material Kit 2 React examples
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
-import DefaultFooter from "examples/Footers/DefaultFooter";
+import ScrollToTop from "react-scroll-to-top";
 
 // About Us page sections
 import Information from "pages/LandingPages/AboutUs/sections/Information";
@@ -35,6 +35,7 @@ import Newsletter from "pages/LandingPages/AboutUs/sections/Newsletter";
 // Routes
 import routes from "routes";
 import footerRoutes from "footer.routes";
+import DefaultFooter from "examples/Footers/DefaultFooter";
 
 // Images
 import bgImage from "assets/images/2.jpg";
@@ -44,14 +45,14 @@ function AboutUs() {
     <>
       <DefaultNavbar
         routes={routes}
-        transparent
-        light
         action={{
           type: "internal",
           route: "/appointment",
           label: "book appointment",
           color: "success",
         }}
+        dark
+        sticky
       />
       <MKBox
         minHeight="75vh"
@@ -137,6 +138,7 @@ function AboutUs() {
         <Team />
         <Newsletter />
       </Card>
+      <ScrollToTop smooth />
       <MKBox pt={6} px={1} mt={6}>
         <DefaultFooter content={footerRoutes} />
       </MKBox>

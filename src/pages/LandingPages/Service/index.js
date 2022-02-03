@@ -29,6 +29,9 @@ import Grid from "@mui/material/Grid";
 // import MKTypography from "components/MKTypography";
 import FilledInfoCard from "examples/Cards/InfoCards/FilledInfoCard";
 import Featuring from "pages/LandingPages/Service/sections/Featuring";
+import ScrollToTop from "react-scroll-to-top";
+import footerRoutes from "footer.routes";
+import DefaultFooter from "examples/Footers/DefaultFooter";
 
 // Routes
 import routes from "routes";
@@ -267,8 +270,11 @@ grouping."
             </Container>
           </MKBox>
         </Card>
+        <ScrollToTop smooth />
 
-        {/* <Footer /> */}
+        <MKBox pt={6} px={1} mt={6}>
+          <DefaultFooter content={footerRoutes} />
+        </MKBox>
       </MKBox>
     </>
   );

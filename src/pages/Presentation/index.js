@@ -23,6 +23,7 @@ import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 import MKSocialButton from "components/MKSocialButton";
 import Carousel from "react-material-ui-carousel";
+import ScrollToTop from "react-scroll-to-top";
 
 // Material Kit 2 React examples
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
@@ -239,6 +240,7 @@ quality healthcare. To be a leader in providing quality, compassionate patient -
           </Container>
         </MKBox>
       </Card>
+      <ScrollToTop smooth />
       <MKBox pt={6} px={1} mt={6}>
         <DefaultFooter content={footerRoutes} />
       </MKBox>
