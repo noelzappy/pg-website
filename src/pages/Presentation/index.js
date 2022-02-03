@@ -32,8 +32,6 @@ import FilledInfoCard from "examples/Cards/InfoCards/FilledInfoCard";
 // Presentation page sections
 // import Counters from "pages/Presentation/sections/Counters";
 import Information from "pages/Presentation/sections/Information";
-// import DesignBlocks from "pages/Presentation/sections/DesignBlocks";
-// import Pages from "pages/Presentation/sections/Pages";
 import Testimonials from "pages/Presentation/sections/Testimonials";
 import Download from "pages/Presentation/sections/Download";
 
@@ -42,34 +40,36 @@ import BuiltByDevelopers from "pages/Presentation/components/BuiltByDevelopers";
 // Routes
 import routes from "routes";
 import footerRoutes from "footer.routes";
-
+import firebase from "firebase";
 // Images
 import bgImage from "assets/images/1.jpg";
-import imgTwo from "assets/images/2.jpg";
-import imgThree from "assets/images/3.jpg";
+import { useState, useEffect } from "react";
 
 function Presentation() {
-  const carouselItems = [
+  const database = firebase.database();
+
+  const [carouselItems, setCarouselItems] = useState([
     {
       name: "Precious Gem Diagnostic Center",
       description:
         "Providing personalized, high–quality health care to our clients. We exceed expectations through our commitment to continuous quality improvement of healthcare.",
       image: bgImage,
     },
-    {
-      name: "Precious Gem Diagnostic Center",
-      description:
-        "Providing personalized, high–quality health care to our clients. We exceed expectations through our commitment to continuous quality improvement of healthcare.",
-      image: imgTwo,
-    },
-    {
-      name: "Precious Gem Diagnostic Center",
-      description:
-        "Providing personalized, high–quality health care to our clients. We exceed expectations through our commitment to continuous quality improvement of healthcare.",
-      image: imgThree,
-    },
-  ];
+  ]);
 
+  useEffect(() => {
+    database.ref("slidingBanners").on("value", (snapshot) => {
+      const tempArr = [];
+      Object.values(snapshot.val()).forEach((item) =>
+        tempArr.push({
+          name: item.title,
+          description: item.description,
+          image: item.imageURL,
+        })
+      );
+      setCarouselItems(tempArr);
+    });
+  }, []);
   return (
     <>
       <DefaultNavbar
