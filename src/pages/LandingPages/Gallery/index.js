@@ -29,10 +29,7 @@ import Grid from "@mui/material/Grid";
 
 // Material Kit 2 React components
 import MKTypography from "components/MKTypography";
-
-// Gallery page sections
-// import Contact from "pages/LandingPages/Gallery/sections/Contact";
-// import Footer from "pages/LandingPages/Gallery/sections/Footer";
+import firebase from "firebase";
 
 // Routes
 import routes from "routes";
@@ -44,53 +41,66 @@ import ScrollToTop from "react-scroll-to-top";
 
 // Images
 import bgImage from "assets/images/x-ray-room-correct.jpeg";
-import { useState } from "react";
-
-const imageList = [
-  {
-    img: "https://i.ibb.co/smLGPhy/x-ray-work-station.jpg",
-    title: "Precus Gem Image",
-  },
-  {
-    img: "https://i.ibb.co/6y4SJwQ/x-ray-viewint-room.jpg",
-    title: "Precus Gem Image",
-  },
-  {
-    img: "https://i.ibb.co/Xtykg53/x-ray-room-correct-1.jpg",
-    title: "Precus Gem Image",
-  },
-  {
-    img: "https://i.ibb.co/bPDxnzm/x-ray-reception.jpg",
-    title: "Precus Gem Image",
-  },
-  {
-    img: "https://i.ibb.co/7JQ6MSp/x-ray-room.jpg",
-    title: "Precus Gem Image",
-  },
-  {
-    img: "https://i.ibb.co/YkdmNKM/ultrasound-room.jpg",
-    title: "Precus Gem Image",
-  },
-  {
-    img: "https://i.ibb.co/QmsFy5X/nsawam-prison-donation-3.jpg",
-    title: "Precus Gem Image",
-  },
-  {
-    img: "https://i.ibb.co/2ghDQ79/donation-to-nsawam-prison.jpg",
-    title: "Precus Gem Image",
-  },
-  {
-    img: "https://i.ibb.co/Sr0gwKL/donation-to-nsawam-prison-2.jpg",
-    title: "Precious Gem",
-  },
-  {
-    img: "https://i.ibb.co/yQddCSm/ultrasound-room-5.jpg",
-    title: "Precious Gem",
-  },
-];
+import { useState, useEffect } from "react";
 
 function Gallery() {
+  const database = firebase.database();
   const [imgURL, setImgURL] = useState(null);
+  const [localImages, setLocalImages] = useState([
+    {
+      img: "https://i.ibb.co/smLGPhy/x-ray-work-station.jpg",
+      title: "Precus Gem Image",
+    },
+    {
+      img: "https://i.ibb.co/6y4SJwQ/x-ray-viewint-room.jpg",
+      title: "Precus Gem Image",
+    },
+    {
+      img: "https://i.ibb.co/Xtykg53/x-ray-room-correct-1.jpg",
+      title: "Precus Gem Image",
+    },
+    {
+      img: "https://i.ibb.co/bPDxnzm/x-ray-reception.jpg",
+      title: "Precus Gem Image",
+    },
+    {
+      img: "https://i.ibb.co/7JQ6MSp/x-ray-room.jpg",
+      title: "Precus Gem Image",
+    },
+    {
+      img: "https://i.ibb.co/YkdmNKM/ultrasound-room.jpg",
+      title: "Precus Gem Image",
+    },
+    {
+      img: "https://i.ibb.co/QmsFy5X/nsawam-prison-donation-3.jpg",
+      title: "Precus Gem Image",
+    },
+    {
+      img: "https://i.ibb.co/2ghDQ79/donation-to-nsawam-prison.jpg",
+      title: "Precus Gem Image",
+    },
+    {
+      img: "https://i.ibb.co/Sr0gwKL/donation-to-nsawam-prison-2.jpg",
+      title: "Precious Gem",
+    },
+    {
+      img: "https://i.ibb.co/yQddCSm/ultrasound-room-5.jpg",
+      title: "Precious Gem",
+    },
+  ]);
+
+  useEffect(() => {
+    database.ref("galleryImages").on("value", (snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        const tempArr = [];
+        Object.values(data).forEach((img) => {
+          tempArr.push(img);
+        });
+        setLocalImages(tempArr);
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -140,7 +150,7 @@ function Gallery() {
                 </MKTypography>
               </Grid>
               <ImageList cols={2} variant="masonry">
-                {imageList.map((item) => (
+                {localImages.map((item) => (
                   <ImageListItem
                     key={item.img}
                     onClick={() => {
