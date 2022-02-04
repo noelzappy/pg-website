@@ -22,12 +22,21 @@ import Grid from "@mui/material/Grid";
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 import MKInput from "components/MKInput";
+import firebase from "firebase";
 import MKButton from "components/MKButton";
+import { object, string } from "yup";
 
 // Images
 import microScopeStaring from "assets/images/3.jpg";
+import { useState } from "react";
+
+const schema = object({
+  email: string().email(),
+});
 
 function Newsletter() {
+  const database = firebase.database();
+  const [email, setEmail] = useState("");
   return (
     <MKBox component="section" pt={6} my={6}>
       <Container>
@@ -39,10 +48,27 @@ function Newsletter() {
             </MKTypography>
             <Grid container spacing={1}>
               <Grid item xs={8}>
-                <MKInput type="email" label="Email Here..." fullWidth />
+                <MKInput
+                  type="email"
+                  label="Email Here..."
+                  fullWidth
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </Grid>
               <Grid item xs={4}>
-                <MKButton variant="gradient" color="success" sx={{ height: "100%" }}>
+                <MKButton
+                  variant="gradient"
+                  color="success"
+                  sx={{ height: "100%" }}
+                  onClick={() => {
+                    schema
+                      .validate({ email })
+                      .then(() => database.ref("newsletterSubscribers").push(email))
+                      .then(() => window.location.reload())
+                      .catch((e) => console.log(e));
+                  }}
+                >
                   Subscribe
                 </MKButton>
               </Grid>

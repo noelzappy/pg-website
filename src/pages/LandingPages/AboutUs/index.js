@@ -36,11 +36,45 @@ import Newsletter from "pages/LandingPages/AboutUs/sections/Newsletter";
 import routes from "routes";
 import footerRoutes from "footer.routes";
 import DefaultFooter from "examples/Footers/DefaultFooter";
+import firebase from "firebase";
+import { useState, useEffect } from "react";
 
 // Images
 import bgImage from "assets/images/2.jpg";
 
 function AboutUs() {
+  const database = firebase.database();
+
+  const [vision, setVision] = useState("");
+  const [mission, setMission] = useState("");
+  const [fb, setFB] = useState("#");
+  const [twitter, setTwitter] = useState("#");
+  const [insta, setInsta] = useState("#");
+
+  useEffect(() => {
+    database.ref("webContents").on("value", (snapshot) => {
+      const data = snapshot.val();
+      Object.entries(data).forEach((item) => {
+        const [key, value] = item;
+        if (key === "mission") {
+          setMission(value);
+        }
+        if (key === "vision") {
+          setVision(value);
+        }
+        if (key === "fbLink") {
+          setFB(value);
+        }
+        if (key === "twitterLink") {
+          setTwitter(value);
+        }
+        if (key === "instagramLink") {
+          setInsta(value);
+        }
+      });
+    });
+  }, []);
+
   return (
     <>
       <DefaultNavbar
@@ -100,7 +134,7 @@ function AboutUs() {
               color="default"
               sx={{ color: ({ palette: { dark } }) => dark.main }}
               onClick={() => {
-                window.location.href = "https://google.com/maps";
+                window.location.href = "#";
               }}
             >
               Get Direction
@@ -109,17 +143,14 @@ function AboutUs() {
               Find us on
             </MKTypography>
             <MKBox display="flex" justifyContent="center" alignItems="center">
-              <MKTypography component="a" variant="body1" color="white" href="#" mr={3}>
+              <MKTypography component="a" variant="body1" color="white" href={fb} mr={3}>
                 <i className="fab fa-facebook" />
               </MKTypography>
-              <MKTypography component="a" variant="body1" color="white" href="#" mr={3}>
+              <MKTypography component="a" variant="body1" color="white" href={insta} mr={3}>
                 <i className="fab fa-instagram" />
               </MKTypography>
-              <MKTypography component="a" variant="body1" color="white" href="#" mr={3}>
+              <MKTypography component="a" variant="body1" color="white" href={twitter} mr={3}>
                 <i className="fab fa-twitter" />
-              </MKTypography>
-              <MKTypography component="a" variant="body1" color="white" href="#">
-                <i className="fab fa-google-plus" />
               </MKTypography>
             </MKBox>
           </Grid>
@@ -134,7 +165,7 @@ function AboutUs() {
           boxShadow: ({ boxShadows: { xxl } }) => xxl,
         }}
       >
-        <Information />
+        <Information mission={mission} vision={vision} />
         <Team />
         <Newsletter />
       </Card>

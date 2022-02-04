@@ -19,12 +19,14 @@ import Grid from "@mui/material/Grid";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
+// prop-types is a library for typechecking of props
+import PropTypes from "prop-types";
 
 // Material Kit 2 React examples
 import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
 import CenteredBlogCard from "examples/Cards/BlogCards/CenteredBlogCard";
 
-function Information() {
+function Information({ mission, vision }) {
   return (
     <MKBox component="section" py={12}>
       <Container>
@@ -33,18 +35,12 @@ function Information() {
             <Grid container justifyContent="flex-start">
               <Grid item xs={12} md={6}>
                 <MKBox mb={5}>
-                  <DefaultInfoCard
-                    title="Our Mission"
-                    description="To provide our clients with personalized, high–quality care ,We are dedicated to improving and maintaining your Health through advanced diagnostic medicine"
-                  />
+                  <DefaultInfoCard title="Our Mission" description={mission} />
                 </MKBox>
               </Grid>
               <Grid item xs={12} md={6}>
                 <MKBox mb={5}>
-                  <DefaultInfoCard
-                    title="Our Vision"
-                    description="To be a leader in providing quality, compassionate patient-centered care that seeks physical cures and comforts as well as peace of mind and peace of heart"
-                  />
+                  <DefaultInfoCard title="Our Vision" description={vision} />
                 </MKBox>
               </Grid>
               <Grid item xs={12} md={6}>
@@ -83,5 +79,10 @@ function Information() {
     </MKBox>
   );
 }
+
+Information.propTypes = {
+  mission: PropTypes.string.isRequired,
+  vision: PropTypes.string.isRequired,
+};
 
 export default Information;

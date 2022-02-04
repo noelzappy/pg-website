@@ -21,6 +21,7 @@ import MKBox from "components/MKBox";
 import MKInput from "components/MKInput";
 import MKButton from "components/MKButton";
 import MKTypography from "components/MKTypography";
+import Alert from "@mui/material/Alert";
 
 // Material Kit 2 React examples
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
@@ -29,11 +30,59 @@ import DefaultFooter from "examples/Footers/DefaultFooter";
 // Routes
 import routes from "routes";
 import footerRoutes from "footer.routes";
-
+import { object, string } from "yup";
 // Image
 import bgImage from "assets/images/1.jpg";
+import { useState } from "react";
+import firebase from "firebase";
 
 function ContactUs() {
+  const database = firebase.database();
+
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
+
+  const contactSchema = object({
+    name: string().required("Please enter your full name"),
+
+    email: string("Please provide a valid email address")
+      .email("Please provide a valid email address")
+      .required("Please provide a valid email address"),
+    message: string("Please pprovide the reason of contacting us").required(
+      "Please pprovide the reason of contacting us"
+    ),
+  });
+
+  const onSubmitForm = () => {
+    contactSchema
+      .validate({
+        name,
+        email,
+        message,
+      })
+      .then(() => {
+        setErrorMessage(null);
+        database
+          .ref("feedbacks")
+          .push({
+            name,
+            email,
+            message,
+          })
+          .then(() => {
+            setSuccessMessage("Message sent Successfully");
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          })
+          .catch((error) => setErrorMessage(error.message));
+      })
+      .catch((error) => setErrorMessage(error.message));
+  };
+
   return (
     <>
       <MKBox position="fixed" top="0.5rem" width="100%">
@@ -97,8 +146,8 @@ function ContactUs() {
             </MKBox>
             <MKBox p={3}>
               <MKTypography variant="body2" color="text" mb={3}>
-                For further questions, including enquiries, appointment, please email
-                contact@preciousgemcentre.com or contact using our contact form.
+                For further questions, including enquiries, appointment, please contact us using the
+                form below.
               </MKTypography>
               <MKBox width="100%" component="form" method="post" autocomplete="off">
                 <Grid container spacing={3}>
@@ -108,6 +157,8 @@ function ContactUs() {
                       label="Full Name"
                       InputLabelProps={{ shrink: true }}
                       fullWidth
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                     />
                   </Grid>
                   <Grid item xs={12} md={6}>
@@ -117,6 +168,8 @@ function ContactUs() {
                       label="Email"
                       InputLabelProps={{ shrink: true }}
                       fullWidth
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -128,11 +181,38 @@ function ContactUs() {
                       multiline
                       fullWidth
                       rows={6}
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
                     />
                   </Grid>
                 </Grid>
+                {errorMessage !== null && (
+                  <Grid item xs={12} mb={3}>
+                    <Alert
+                      onClose={() => {
+                        setErrorMessage(null);
+                      }}
+                      severity="error"
+                    >
+                      {errorMessage}
+                    </Alert>
+                  </Grid>
+                )}
+
+                {successMessage !== null && (
+                  <Grid item xs={12} mb={3}>
+                    <Alert
+                      onClose={() => {
+                        setSuccessMessage(null);
+                      }}
+                      severity="success"
+                    >
+                      {successMessage}
+                    </Alert>
+                  </Grid>
+                )}
                 <Grid container item justifyContent="center" xs={12} mt={5} mb={2}>
-                  <MKButton variant="gradient" color="success">
+                  <MKButton variant="gradient" color="success" onClick={onSubmitForm}>
                     Send Message
                   </MKButton>
                 </Grid>

@@ -21,7 +21,6 @@ import Card from "@mui/material/Card";
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
-import MKSocialButton from "components/MKSocialButton";
 import Carousel from "react-material-ui-carousel";
 import ScrollToTop from "react-scroll-to-top";
 
@@ -57,6 +56,8 @@ function Presentation() {
       image: bgImage,
     },
   ]);
+  const [vision, setVision] = useState("");
+  const [mission, setMission] = useState("");
 
   useEffect(() => {
     database.ref("slidingBanners").on("value", (snapshot) => {
@@ -70,7 +71,21 @@ function Presentation() {
       );
       setCarouselItems(tempArr);
     });
+
+    database.ref("webContents").on("value", (snapshot) => {
+      const data = snapshot.val();
+      Object.entries(data).forEach((item) => {
+        const [key, value] = item;
+        if (key === "mission") {
+          setMission(value);
+        }
+        if (key === "vision") {
+          setVision(value);
+        }
+      });
+    });
   }, []);
+
   return (
     <>
       <DefaultNavbar
@@ -158,10 +173,7 @@ function Presentation() {
                 color="success"
                 icon="M"
                 title="Our Mission"
-                description="To provide our clients with personalized, high–quality care ,We are dedicated to
-improving and maintaining your Health through advanced diagnostic medicine . To achieve an
-unequaled level of measurable quality and productivity in the delivery of health services that are
-responsive to then needs and values of patients ,physicians ,employers and employees."
+                description={mission}
                 action={{
                   type: "internal",
                   route: "/about-us",
@@ -174,8 +186,7 @@ responsive to then needs and values of patients ,physicians ,employers and emplo
                 color="success"
                 icon="V"
                 title="Our Vision"
-                description="To be the first choice in healthcare for our communities by exceeding expectations through our commitment to continuous quality improvement of healthcare. To be the partner of choice for physicians by ensuring a safe environment to practice safe and
-quality healthcare. To be a leader in providing quality, compassionate patient -centered care that seeks physical cures and comforts as well as peace of mind and peace of heart"
+                description={vision}
                 action={{
                   type: "internal",
                   route: "/about-us",
@@ -187,58 +198,6 @@ quality healthcare. To be a leader in providing quality, compassionate patient -
         </Container>
         <Testimonials />
         <Download />
-        <MKBox pt={18} pb={6}>
-          <Container>
-            <Grid container spacing={3}>
-              <Grid item xs={12} lg={5} ml="auto" sx={{ textAlign: { xs: "center", lg: "left" } }}>
-                <MKTypography variant="h4" fontWeight="bold" mb={0.5}>
-                  Stay up to date with our updates
-                </MKTypography>
-                <MKTypography variant="body1" color="text">
-                  Follow us across our social media platforms.
-                </MKTypography>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                lg={5}
-                my={{ xs: 5, lg: "auto" }}
-                mr={{ xs: 0, lg: "auto" }}
-                sx={{ textAlign: { xs: "center", lg: "right" } }}
-              >
-                <MKSocialButton
-                  component="a"
-                  href="https://twitter.com/noelzappy"
-                  target="_blank"
-                  color="twitter"
-                  sx={{ mr: 1 }}
-                >
-                  <i className="fab fa-twitter" />
-                  &nbsp;Twitter
-                </MKSocialButton>
-                <MKSocialButton
-                  component="a"
-                  href="https://www.facebook.com/noelzappy"
-                  target="_blank"
-                  color="facebook"
-                  sx={{ mr: 1 }}
-                >
-                  <i className="fab fa-facebook" />
-                  &nbsp;Facebook
-                </MKSocialButton>
-                <MKSocialButton
-                  component="a"
-                  href="https://youtube.com/noelzappy"
-                  target="_blank"
-                  color="youtube"
-                >
-                  <i className="fab fa-youtube" />
-                  &nbsp;YouTube
-                </MKSocialButton>
-              </Grid>
-            </Grid>
-          </Container>
-        </MKBox>
       </Card>
       <ScrollToTop smooth />
       <MKBox pt={6} px={1} mt={6}>

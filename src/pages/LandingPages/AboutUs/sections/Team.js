@@ -32,18 +32,16 @@ function Team() {
   const [members, setMembers] = useState([]);
 
   useEffect(() => {
-    database
-      .ref("staffs")
-      .get()
-      .then((snapshot) => {
+    database.ref("staffs").on("value", (snapshot) => {
+      if (snapshot.exists()) {
         const staffs = snapshot.val();
         const temArr = [];
         Object.values(staffs).forEach((staff) => {
           temArr.push(staff);
         });
         setMembers(temArr);
-      })
-      .catch((err) => console.log(err));
+      }
+    });
   }, []);
 
   return (

@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // @mui material components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -31,6 +31,11 @@ import Select from "@mui/material/Select";
 import { object, string, number } from "yup";
 import firebase from "firebase";
 
+import TextField from "@mui/material/TextField";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DateTimePicker from "@mui/lab/DateTimePicker";
+
 // Images
 import bgImage from "assets/images/1.jpg";
 
@@ -43,6 +48,40 @@ function Contact() {
   const [description, setDescription] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+
+  const [fb, setFB] = useState("#");
+  const [twitter, setTwitter] = useState("#");
+  const [insta, setInsta] = useState("#");
+  const [bizPhone, setBizPhone] = useState("");
+  const [bizEmail, setBizEmail] = useState("");
+  const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+    database.ref("webContents").on("value", (snapshot) => {
+      const data = snapshot.val();
+      Object.entries(data).forEach((item) => {
+        const [key, value] = item;
+
+        if (key === "bizPhone") {
+          setBizPhone(value);
+        }
+
+        if (key === "bizEmail") {
+          setBizEmail(value);
+        }
+
+        if (key === "fbLink") {
+          setFB(value);
+        }
+        if (key === "twitterLink") {
+          setTwitter(value);
+        }
+        if (key === "instagramLink") {
+          setInsta(value);
+        }
+      });
+    });
+  }, []);
 
   const appointmentSchema = object({
     fullName: string().required("Please enter your full name"),
@@ -82,6 +121,7 @@ function Contact() {
             serviceBooked: service,
             description,
             status: "pending",
+            appointmentTime: date,
           })
           .then(() => {
             setSuccessMessage("Apointment Booked Successfully");
@@ -164,7 +204,7 @@ function Contact() {
                         ml={2}
                         fontWeight="regular"
                       >
-                        (+233) 542 778 775
+                        {bizPhone}
                       </MKTypography>
                     </MKBox>
                     <MKBox display="flex" color="white" p={1}>
@@ -179,10 +219,10 @@ function Contact() {
                         ml={2}
                         fontWeight="regular"
                       >
-                        info@preciousgem.com
+                        {bizEmail}
                       </MKTypography>
                     </MKBox>
-                    <MKBox display="flex" color="white" p={1}>
+                    {/* <MKBox display="flex" color="white" p={1}>
                       <MKTypography variant="button" color="white">
                         <i className="fas fa-map-marker-alt" />
                       </MKTypography>
@@ -196,16 +236,37 @@ function Contact() {
                       >
                         Address of Precious Gem
                       </MKTypography>
-                    </MKBox>
+                    </MKBox> */}
                     <MKBox mt={3}>
-                      <MKButton variant="text" color="white" size="large" iconOnly>
+                      <MKButton
+                        variant="text"
+                        color="white"
+                        size="large"
+                        iconOnly
+                        component="a"
+                        href={fb}
+                      >
                         <i className="fab fa-facebook" style={{ fontSize: "1.25rem" }} />
                       </MKButton>
-                      <MKButton variant="text" color="white" size="large" iconOnly>
+                      <MKButton
+                        variant="text"
+                        color="white"
+                        size="large"
+                        iconOnly
+                        component="a"
+                        href={twitter}
+                      >
                         <i className="fab fa-twitter" style={{ fontSize: "1.25rem" }} />
                       </MKButton>
 
-                      <MKButton variant="text" color="white" size="large" iconOnly>
+                      <MKButton
+                        variant="text"
+                        color="white"
+                        size="large"
+                        iconOnly
+                        component="a"
+                        href={insta}
+                      >
                         <i className="fab fa-instagram" style={{ fontSize: "1.25rem" }} />
                       </MKButton>
                     </MKBox>
@@ -283,20 +344,33 @@ function Contact() {
                           </Select>
                         </FormControl>
                       </Grid>
+
                       <Grid item xs={12} pr={1} mb={6}>
-                        <MKInput
-                          variant="standard"
-                          label="Reason for appointment"
-                          placeholder="I want to book appointment about..."
-                          InputLabelProps={{ shrink: true }}
-                          fullWidth
-                          multiline
-                          rows={6}
-                          value={description}
-                          onChange={(e) => setDescription(e.target.value)}
-                        />
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                          <DateTimePicker
+                            label="Choose Appointment Time & Date"
+                            value={date}
+                            onChange={(val) => setDate(val)}
+                            renderInput={(params) => <TextField {...params} />}
+                          />
+                        </LocalizationProvider>
                       </Grid>
                     </Grid>
+
+                    <Grid item xs={12} pr={1} mb={6}>
+                      <MKInput
+                        variant="standard"
+                        label="Reason for appointment"
+                        placeholder="I want to book appointment about..."
+                        InputLabelProps={{ shrink: true }}
+                        fullWidth
+                        multiline
+                        rows={6}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                      />
+                    </Grid>
+
                     {errorMessage !== null && (
                       <Grid item xs={12} mb={3}>
                         <Alert

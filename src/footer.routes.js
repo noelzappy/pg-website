@@ -7,7 +7,7 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import MKTypography from "components/MKTypography";
 
 // Images
-import logoCT from "assets/images/logo-ct-dark.png";
+import logoCT from "assets/images/logos/logo-1.png";
 
 const date = new Date().getFullYear();
 
@@ -41,19 +41,10 @@ export default {
       ],
     },
     {
-      name: "Resources",
+      name: "Others",
       items: [
-        { name: "our blog", href: "#" },
-        { name: "get direction", href: "#" },
-      ],
-    },
-
-    {
-      name: "legal",
-      items: [
-        { name: "terms & conditions", href: "#" },
-        { name: "privacy policy", href: "#" },
-        { name: "licenses (EULA)", href: "#" },
+        { name: "appointment", href: "/appointment" },
+        { name: "gallery", href: "/gallery" },
       ],
     },
   ],
