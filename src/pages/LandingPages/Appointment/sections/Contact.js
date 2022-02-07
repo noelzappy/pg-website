@@ -18,6 +18,7 @@ import { useState, useEffect } from "react";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Alert from "@mui/material/Alert";
+import DatePicker from "@mui/lab/DatePicker";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
@@ -28,13 +29,14 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { object, string, number } from "yup";
+import { object, string, number, date } from "yup";
 import firebase from "firebase";
 
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DateTimePicker from "@mui/lab/DateTimePicker";
+import { format } from "date-fns";
 
 // Images
 import bgImage from "assets/images/1.jpg";
@@ -54,7 +56,9 @@ function Contact() {
   const [insta, setInsta] = useState("#");
   const [bizPhone, setBizPhone] = useState("");
   const [bizEmail, setBizEmail] = useState("");
-  const [date, setDate] = useState(new Date());
+  const [appointmentTime, setAppointmentTime] = useState(null);
+  const [userDOB, setUserDOB] = useState(null);
+  const [userGender, setUserGender] = useState("");
 
   useEffect(() => {
     database.ref("webContents").on("value", (snapshot) => {
@@ -99,6 +103,9 @@ function Contact() {
     description: string("Please describe the reason for your appointment in brief").required(
       "Please describe the reason for your appointment in brief"
     ),
+    appointmentTime: date().required("Please choose and appointment time"),
+    userDOB: date().required("Pllease enter your date of birth"),
+    userGender: string().required("Please choose a gender"),
   });
 
   const onSubmitForm = () => {
@@ -109,9 +116,14 @@ function Contact() {
         userEmail,
         service,
         description,
+        appointmentTime,
+        userDOB,
+        userGender,
       })
       .then(() => {
         setErrorMessage(null);
+        // console.log(format(appointmentTime, "MMMMMMM-yyyy-dd / h:mm a"));
+
         database
           .ref("appointments")
           .push({
@@ -121,7 +133,9 @@ function Contact() {
             serviceBooked: service,
             description,
             status: "pending",
-            appointmentTime: date,
+            appointmentTime: format(appointmentTime, "MMM-yyyy-dd / h:mm a").toString(),
+            userDOB: format(userDOB, "MMM/yyyy/dd").toString(),
+            userGender,
           })
           .then(() => {
             setSuccessMessage("Apointment Booked Successfully");
@@ -310,6 +324,27 @@ function Contact() {
                           onChange={(e) => setUserEmail(e.target.value)}
                         />
                       </Grid>
+
+                      <Grid item xs={12} pr={1} mb={6}>
+                        <FormControl
+                          fullWidth
+                          variant="standard"
+                          InputLabelProps={{ shrink: true }}
+                        >
+                          <InputLabel id="service">Your Gender</InputLabel>
+                          <Select
+                            labelId="gender"
+                            id="gender-select"
+                            value={userGender}
+                            label="Gender"
+                            onChange={(e) => setUserGender(e.target.value)}
+                          >
+                            <MenuItem value="Male"> Male</MenuItem>
+                            <MenuItem value="Female">Female</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Grid>
+
                       <Grid item xs={12} pr={1} mb={6}>
                         <MKInput
                           variant="standard"
@@ -349,9 +384,27 @@ function Contact() {
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                           <DateTimePicker
                             label="Choose Appointment Time & Date"
-                            value={date}
-                            onChange={(val) => setDate(val)}
+                            value={appointmentTime}
+                            onChange={(val) => {
+                              setAppointmentTime(val);
+                            }}
                             renderInput={(params) => <TextField {...params} />}
+                            minDateTime={new Date()}
+                            showTodayButton
+                          />
+                        </LocalizationProvider>
+                      </Grid>
+
+                      <Grid item xs={12} pr={1} mb={6}>
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                          <DatePicker
+                            label="Enter your date of birth"
+                            value={userDOB}
+                            onChange={(newValue) => {
+                              setUserDOB(newValue);
+                            }}
+                            renderInput={(params) => <TextField {...params} />}
+                            maxDate={new Date()}
                           />
                         </LocalizationProvider>
                       </Grid>

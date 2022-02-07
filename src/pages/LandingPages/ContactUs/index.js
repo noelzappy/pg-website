@@ -30,7 +30,7 @@ import DefaultFooter from "examples/Footers/DefaultFooter";
 // Routes
 import routes from "routes";
 import footerRoutes from "footer.routes";
-import { object, string } from "yup";
+import { number, object, string } from "yup";
 // Image
 import bgImage from "assets/images/1.jpg";
 import { useState } from "react";
@@ -44,16 +44,17 @@ function ContactUs() {
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState(null);
 
   const contactSchema = object({
     name: string().required("Please enter your full name"),
-
     email: string("Please provide a valid email address")
       .email("Please provide a valid email address")
       .required("Please provide a valid email address"),
     message: string("Please pprovide the reason of contacting us").required(
       "Please pprovide the reason of contacting us"
     ),
+    phoneNumber: number().required("Please providße your phone number"),
   });
 
   const onSubmitForm = () => {
@@ -62,6 +63,7 @@ function ContactUs() {
         name,
         email,
         message,
+        phoneNumber,
       })
       .then(() => {
         setErrorMessage(null);
@@ -71,6 +73,7 @@ function ContactUs() {
             name,
             email,
             message,
+            phoneNumber,
           })
           .then(() => {
             setSuccessMessage("Message sent Successfully");
@@ -170,6 +173,20 @@ function ContactUs() {
                       fullWidth
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} pr={1} mb={6}>
+                    <MKInput
+                      variant="standard"
+                      label="My phone number is"
+                      placeholder="Phone Number"
+                      InputLabelProps={{ shrink: true }}
+                      fullWidth
+                      type="number"
+                      value={phoneNumber}
+                      onChange={(e) => {
+                        setPhoneNumber(e.target.value);
+                      }}
                     />
                   </Grid>
                   <Grid item xs={12}>
