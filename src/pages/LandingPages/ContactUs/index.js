@@ -99,7 +99,7 @@ function ContactUs() {
           }}
         />
       </MKBox>
-      <Grid container spacing={3} alignItems="center">
+      <Grid container spacing={3} alignItems="center" pt={7}>
         <Grid item xs={12} lg={6}>
           <MKBox
             display={{ xs: "none", lg: "flex" }}

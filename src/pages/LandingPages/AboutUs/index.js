@@ -102,6 +102,7 @@ function AboutUs() {
           display: "grid",
           placeItems: "center",
         }}
+        pt={7}
       >
         <Container>
           <Grid
