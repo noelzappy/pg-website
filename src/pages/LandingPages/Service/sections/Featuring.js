@@ -1,23 +1,8 @@
-/*
-=========================================================
-* Material Kit 2 React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-kit-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // @mui material components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Icon from "@mui/material/Icon";
-import Stack from "@mui/material/Stack";
+// import Icon from "@mui/material/Icon";
+// import Stack from "@mui/material/Stack";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
@@ -38,7 +23,7 @@ function Features() {
             </MKTypography>
           </Grid>
           <Grid item xs={12} lg={6} sx={{ ml: { xs: -2, lg: "auto" }, mt: { xs: 6, lg: 0 } }}>
-            <Stack>
+            {/*   <Stack>
               <MKBox display="flex" alignItems="center" p={2}>
                 <MKBox
                   width="3rem"
@@ -96,7 +81,7 @@ function Features() {
                   Medical examination services
                 </MKTypography>
               </MKBox>
-            </Stack>
+  </Stack> */}
           </Grid>
         </Grid>
       </Container>

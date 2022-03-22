@@ -102,7 +102,7 @@ function AboutUs() {
           display: "grid",
           placeItems: "center",
         }}
-        pt={7}
+        pt={17}
       >
         <Container>
           <Grid

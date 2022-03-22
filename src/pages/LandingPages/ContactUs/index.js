@@ -32,7 +32,7 @@ import routes from "routes";
 import footerRoutes from "footer.routes";
 import { number, object, string } from "yup";
 // Image
-import bgImage from "assets/images/1.jpg";
+import bgImage from "assets/images/new/pics1.png";
 import { useState } from "react";
 import firebase from "firebase";
 
